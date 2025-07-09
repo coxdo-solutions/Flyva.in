@@ -26,6 +26,7 @@ export function Header() {
     { href: "/packages", label: "Packages" },
     { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
+    { href: "/alhijrah", label: "Al Hijrah" },
   ];
 
   return (
