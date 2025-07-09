@@ -1,51 +1,65 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
-import { Phone, Mail, MessageCircle, Clock, MapPin, Send, Globe, Star, Users } from 'lucide-react';
+import {
+  Phone,
+  Mail,
+  MessageCircle,
+  Clock,
+  MapPin,
+  Send,
+  Globe,
+  Star,
+  Users,
+} from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    
+
     // Create WhatsApp message with form data
     const message = `Hello! I'm interested in your travel packages.
-    
+
 Name: ${formData.fullName}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Message: ${formData.message}`;
-    
+
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/918590508376?text=${encodedMessage}`, '_blank');
-    
+
     // Reset form
     setFormData({
       fullName: '',
       email: '',
       phone: '',
-      message: ''
+      message: '',
     });
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent("Hello! I'm interested in your travel packages. Please provide more information.");
+    const message = encodeURIComponent(
+      "Hello! I'm interested in your travel packages. Please provide more information."
+    );
     window.open(`https://wa.me/918590508376?text=${message}`, '_blank');
   };
 
@@ -53,13 +67,12 @@ Message: ${formData.message}`;
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
       <div className="relative bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white overflow-hidden">
-        {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
           <div className="absolute bottom-20 right-20 w-24 h-24 bg-white rounded-full"></div>
           <div className="absolute top-40 right-40 w-16 h-16 bg-white rounded-full"></div>
         </div>
-        
+
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center">
           <div className="flex justify-center items-center mb-6">
             <div className="bg-white bg-opacity-20 p-4 rounded-lg mr-4">
@@ -67,13 +80,13 @@ Message: ${formData.message}`;
             </div>
             <h1 className="text-4xl md:text-5xl font-bold">Flyva Holidays</h1>
           </div>
-          
+
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Get in Touch</h2>
-          
+
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
             Ready to embark on your next adventure? Contact us and let's plan your perfect getaway together.
           </p>
-          
+
           <div className="flex flex-wrap justify-center gap-6 mb-8">
             <div className="flex items-center bg-white bg-opacity-20 px-6 py-3 rounded-full">
               <Globe className="w-5 h-5 mr-2" />
@@ -96,8 +109,8 @@ Message: ${formData.message}`;
             <p className="text-gray-600 mb-8">
               Ready to explore the world? Contact us and let's make your travel dreams come true
             </p>
-            
-            <div className="space-y-6">
+
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <input
                   type="text"
@@ -108,7 +121,7 @@ Message: ${formData.message}`;
                   className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder-gray-500"
                 />
               </div>
-              
+
               <div>
                 <input
                   type="email"
@@ -119,7 +132,7 @@ Message: ${formData.message}`;
                   className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder-gray-500"
                 />
               </div>
-              
+
               <div>
                 <input
                   type="tel"
@@ -130,26 +143,26 @@ Message: ${formData.message}`;
                   className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder-gray-500"
                 />
               </div>
-              
+
               <div>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  placeholder="Tell us about your travel plans, destinations you're interested in, and how we can help you..."
+                  placeholder="Tell us about your travel plans..."
                   rows={5}
                   className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none text-gray-900 placeholder-gray-500"
                 />
               </div>
-              
+
               <button
-                onClick={handleSubmit}
+                type="submit"
                 className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center group"
               >
                 <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Contact via WhatsApp
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Contact Information */}
@@ -160,7 +173,7 @@ Message: ${formData.message}`;
               <p className="mb-6 opacity-90">
                 With years of experience in creating unforgettable travel experiences, we're your trusted partner for adventures around the globe.
               </p>
-              
+
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <div className="bg-white bg-opacity-20 rounded-full p-4 mb-3 mx-auto w-16 h-16 flex items-center justify-center">
@@ -169,7 +182,7 @@ Message: ${formData.message}`;
                   <div className="text-lg font-bold">50+</div>
                   <div className="text-sm opacity-80">Countries</div>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="bg-white bg-opacity-20 rounded-full p-4 mb-3 mx-auto w-16 h-16 flex items-center justify-center">
                     <Star className="w-8 h-8" />
@@ -177,7 +190,7 @@ Message: ${formData.message}`;
                   <div className="text-lg font-bold">5-Star</div>
                   <div className="text-sm opacity-80">Rated</div>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="bg-white bg-opacity-20 rounded-full p-4 mb-3 mx-auto w-16 h-16 flex items-center justify-center">
                     <Users className="w-8 h-8" />
@@ -265,5 +278,8 @@ Message: ${formData.message}`;
     </div>
   );
 };
+
+export default ContactPage;
+
 
 export default ContactPage;
